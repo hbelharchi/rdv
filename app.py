@@ -11,7 +11,8 @@ fichier_importe = st.file_uploader("Choisir le fichier brut (.xls, .csv, .txt)",
 
 if fichier_importe is not None:
     try:
-if fichier_importe.name.endswith('.xls'):
+        # Correction de l'alignement sous le bloc try
+        if fichier_importe.name.endswith('.xls'):
             try:
                 # Force l'utilisation du moteur xlrd pour les anciens formats Excel
                 df_brut = pd.read_excel(fichier_importe, header=None, engine='xlrd')
@@ -22,6 +23,9 @@ if fichier_importe.name.endswith('.xls'):
                 df_brut = pd.read_csv(fichier_importe, header=None, sep=',', skip_blank_lines=False)
             except:
                 df_brut = pd.read_csv(fichier_importe, header=None, sep=',', skip_blank_lines=False, encoding='latin1')
+        
+        # Ajout de la variable obligatoire pour stocker les résultats
+        donnees_propres = []
         patient_courant = {}
 
         for index, row in df_brut.iterrows():
